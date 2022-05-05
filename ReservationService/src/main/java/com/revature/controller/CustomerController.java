@@ -23,16 +23,21 @@ import org.springframework.web.client.RestTemplate;
 
 import com.revature.model.Customer;
 import com.revature.model.CustomerDTO;
+import com.revature.model.Reservation;
+import com.revature.service.ReservationService;
+
+import net.bytebuddy.utility.privilege.GetMethodAction;
 
 
 @RestController
 @RequestMapping("/customer")
 public class CustomerController {
-
 	
 	@Autowired
 	private RestTemplate restTemplate1;
-	
+
+	private Object messageController;
+
 	@GetMapping(value="/all", produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<Customer> findAll(){		
 		ResponseEntity<List<Customer>> httpResponse = restTemplate1.exchange("http://localhost:8082/customer/all", 
@@ -57,14 +62,18 @@ public class CustomerController {
 	@DeleteMapping("/delete/{id}")
 	public String delete(@PathVariable long id) {
 		Customer customer = getCustomer(id);
+		if(customer.getReservationId() > 0) {
+			return customer.getName() + " cannot be deleted due to having a current reservation";
+			
+		}
 		restTemplate1.delete("http://localhost:8082/customer/delete/" + id);
 		return "Customer " + customer.getName() + " successfully deleted.";
 	}
 	
-	@PutMapping("/update/{id}/{id2}")
-	public String update(@PathVariable long id, @PathVariable long id2) {
+	@PutMapping("/update/{id}/{id2}/{bill}")
+	public String update(@PathVariable long id, @PathVariable long id2, @PathVariable float bill) {
 		Customer customer = getCustomer(id);
-		restTemplate1.put("http://localhost:8082/customer/update/" + id + "/" + id2, customer);
+		restTemplate1.put("http://localhost:8082/customer/update/" + id + "/" + id2 + "/" + bill, customer);
 		return "Customer " + customer.getName() + " Reservation id set to: " + customer.getReservationId();
 	}
 	
@@ -78,6 +87,10 @@ public class CustomerController {
 		}
 		return null;
 	}
+	
+
+
+
 	
 	
 	

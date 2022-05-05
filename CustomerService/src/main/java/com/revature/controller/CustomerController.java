@@ -54,10 +54,11 @@ public class CustomerController {
 		return "Customer " + customer.getName() + " successfully deleted.";
 	}
 
-	@PutMapping("/update/{id}/{id2}")
-	public String update(@PathVariable long id, @PathVariable long id2) {
+	@PutMapping("/update/{id}/{id2}/{bill}")
+	public String update(@PathVariable long id, @PathVariable long id2, @PathVariable float bill) {
 		Customer customer = this.customerService.findCustomerById(id);
 		customer.setReservationId(id2);
+		customer.setBill(bill);
 		this.customerService.save(customer);
 		return "Customer " + customer.getName() + " Reservation id set to: " + customer.getReservationId();
 	}

@@ -1,19 +1,16 @@
 package com.revature.service;
 
-import java.util.List;  
+import java.util.List;   
 
 import javax.jws.WebMethod;
 import javax.jws.WebService;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.revature.model.Room;
 import com.revature.repository.RoomRepository;
 
 @WebService(endpointInterface = "com.revature.service.RoomService")
-@RequestMapping("/room")
 public class RoomServiceImpl implements RoomService{
 
 	private RoomRepository roomRepository; //instance field
@@ -31,7 +28,6 @@ public class RoomServiceImpl implements RoomService{
 	}
 
 	@WebMethod
-	@GetMapping("/all")
 	public List<Room> findAll() {
 		return this.roomRepository.findAll();
 	}

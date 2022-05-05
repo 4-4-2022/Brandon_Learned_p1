@@ -23,12 +23,10 @@ public class Reservation {
 //	private long hotelId;
 	@Column(name = "customer_id")
 	private long customerId;
-	@Column(name="room_name")
-	private String roomName;
+	@Column(name="room_id")
+	private long roomId;
 	@Column(name="days_booked")
 	private int daysBooked;
-	@Column(name = "price")
-	private float price;
 	@Column(name="total_price")
 	private float total;
 //	@ManyToMany
@@ -41,13 +39,12 @@ public class Reservation {
 	}
 
 
-	public Reservation(long id, long customerId, String roomName, int daysBooked, float price) {
+	public Reservation(long id, long customerId, long roomId, int daysBooked) {
 		super();
 		this.id = id;
 		this.customerId = customerId;
-		this.roomName = roomName;
+		this.roomId = roomId;
 		this.daysBooked = daysBooked;
-		this.price = price;
 	}
 
 
@@ -71,13 +68,13 @@ public class Reservation {
 	}
 
 
-	public String getRoomName() {
-		return roomName;
+	public long getRoomId() {
+		return roomId;
 	}
 
 
-	public void setRoomName(String roomName) {
-		this.roomName = roomName;
+	public void setRoomId(long roomId) {
+		this.roomId = roomId;
 	}
 
 
@@ -88,16 +85,6 @@ public class Reservation {
 
 	public void setDaysBooked(int daysBooked) {
 		this.daysBooked = daysBooked;
-	}
-
-
-	public float getPrice() {
-		return price;
-	}
-
-
-	public void setPrice(float price) {
-		this.price = price;
 	}
 
 
@@ -113,7 +100,7 @@ public class Reservation {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(customerId, daysBooked, id, price, roomName, total);
+		return Objects.hash(customerId, daysBooked, id, roomId, total);
 	}
 
 
@@ -127,17 +114,17 @@ public class Reservation {
 			return false;
 		Reservation other = (Reservation) obj;
 		return customerId == other.customerId && daysBooked == other.daysBooked && id == other.id
-				&& Float.floatToIntBits(price) == Float.floatToIntBits(other.price)
-				&& Objects.equals(roomName, other.roomName)
-				&& Float.floatToIntBits(total) == Float.floatToIntBits(other.total);
+				&& roomId == other.roomId && Float.floatToIntBits(total) == Float.floatToIntBits(other.total);
 	}
 
 
 	@Override
 	public String toString() {
-		return "Reservation [id=" + id + ", customerId=" + customerId + ", roomName=" + roomName + ", daysBooked="
-				+ daysBooked + ", price=" + price + ", total=" + total + "]";
+		return "Reservation [id=" + id + ", customerId=" + customerId + ", roomId=" + roomId + ", daysBooked="
+				+ daysBooked + ", total=" + total + "]";
 	}
+
+
 
 
 	

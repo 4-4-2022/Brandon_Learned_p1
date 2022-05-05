@@ -1,10 +1,8 @@
 package com.revature.controller;
 
-import java.util.List;
+import java.util.List; 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -15,8 +13,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
 
+import com.revature.model.Customer;
 import com.revature.model.Reservation;
 import com.revature.model.Room;
 import com.revature.service.ReservationService;
@@ -27,6 +25,8 @@ public class ReservationController {
 
 	private ReservationService reservationService;
 	private CustomerController customerController;
+	@Autowired
+	private MessageController messageController;
 	
 	@Autowired
 	public void setReservationService(ReservationService reservationService, CustomerController customerController) {
@@ -41,23 +41,45 @@ public class ReservationController {
 	}
 	
 	@GetMapping("/{id}")
-	public Reservation findCustomerById(@PathVariable long id) {
-		return this.reservationService.findCustomerById(id);
+	public String findReservationById(@PathVariable long id) {
+		Reservation reservation = this.reservationService.findReservationById(id);
+		Customer customer = customerController.getCustomer(reservation.getCustomerId());
+		Room room = messageController.findById(reservation.getRoomId());
+		return "Customer ID: " + customer.getId() + "\n"
+				+ "Customer: " + customer.getName() + "\n"
+				+ "Room: " + room.getRoomName() + "\n"
+				+ "Days Booked: " + reservation.getDaysBooked() + "\n"
+				+ "Total Price of Stay: $" + reservation.getTotal();
 	}
 	
 	
 	@PostMapping(value="/new", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public String save(@RequestBody Reservation reservation) {
-		reservation.setTotal(reservation.getPrice() * reservation.getDaysBooked());
-		this.reservationService.save(reservation);
-		this.customerController.update(reservation.getCustomerId(), reservation.getId());
-		
-		return "Your reservation has been successfully created!\n"
-				+ "Reservation Id: " + reservation.getId() + "\n"
-				+ "Customer Id: " + reservation.getCustomerId() + "\n"
-				+ "Room Booked: " + reservation.getRoomName() + "\n"
-				+ "Days Booked: " + reservation.getDaysBooked() + "\n"
-				+ "Total Price: $" + reservation.getTotal();
+		Room room = this.messageController.findById(reservation.getRoomId());
+		Customer customer = this.customerController.getCustomer(reservation.getCustomerId());
+		if(room.getRoomsAvailable() > 0) {
+			
+			if(customer.getReservationId() != 0) {
+				return "You already have a reservation.";
+			} else {
+				reservation.setTotal(room.getRoomCost()* reservation.getDaysBooked());
+				this.messageController.decrementRoomCount(room.getId());	
+				this.reservationService.save(reservation);
+				this.customerController.update(reservation.getCustomerId(), reservation.getId(), reservation.getTotal());
+				
+				return "Your reservation has been successfully created!\n"
+						+ "Reservation Id: " + reservation.getId() + "\n"
+						+ "Customer: " + customer.getName() + "\n"
+						+ "Room Booked: " + room.getRoomName() + "\n"
+						+ "Room Price Per Night: $" + room.getRoomCost() + "\n"
+						+ "Days Booked: " + reservation.getDaysBooked() + "\n"
+						+ "Total Stay Price: $" + reservation.getTotal();
+			}
+
+		} else {
+			return "There are no vacancies available for that room.";
+		}
+			
 	}
 	
 	@GetMapping(value="/message")
@@ -66,18 +88,18 @@ public class ReservationController {
 		return this.reservationService.contactRoomService(message);
 	}
 	
-	//currently working on
-	@GetMapping("/room/{id}")
-	public Room getRoomById(@PathVariable long id) {
-		Room room = this.reservationService.getRoomById(id);
-		return room;
-	}
-	
 	@DeleteMapping("/delete/{id}")
 	public String delete(@PathVariable long id) {
-		Reservation reservation = this.reservationService.findCustomerById(id);
+		Reservation reservation = this.reservationService.findReservationById(id);
+		this.messageController.incrementRoomCount(reservation.getRoomId());	
+		this.customerController.update(reservation.getCustomerId(), 0, 0);
 		this.reservationService.delete(reservation);
 		return "Reservation " + reservation.getId() + " successfully deleted.";
+	}
+	
+	@PostMapping(value="/receive", consumes = MediaType.APPLICATION_XML_VALUE)
+	public String save(@RequestBody Room room) {
+		return room.toString();
 	}
 	
 	

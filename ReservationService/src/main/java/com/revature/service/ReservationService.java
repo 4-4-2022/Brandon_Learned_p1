@@ -37,7 +37,7 @@ public class ReservationService {
 		return this.reservationRepository.findAll();
 	}
 	
-	public Reservation findCustomerById(long id) {
+	public Reservation findReservationById(long id) {
 		return this.reservationRepository.findReservationById(id);
 	}
 
@@ -68,25 +68,27 @@ public class ReservationService {
 		return "Success";			
 	}
 	
-	//currently working on
-	public Room getRoomById(long id) {
-		final String URI = "/room-service?wsdl";
-		final String SOAP_MESSAGE = "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ser=\"http://service.revature.com/\">\r\n"
-				+ "   <soapenv:Header/>\r\n"
-				+ "   <soapenv:Body>\r\n"
-				+ "      <ser:findById>\r\n"
-				+ "         <arg0>"+id+"</arg0>\r\n"
-				+ "      </ser:findById>\r\n"
-				+ "   </soapenv:Body>\r\n"
-				+ "</soapenv:Envelope>";
-		
-		HttpHeaders header = new HttpHeaders();
-		header.setContentType(MediaType.APPLICATION_XML);
-		HttpEntity<String> request = new HttpEntity<>(SOAP_MESSAGE, header);
-		ResponseEntity<Room> httpResponse = restTemplate2.exchange(URI, HttpMethod.GET, request, Room.class);
-		return httpResponse.getBody();
-					
-	}
+//	//currently working on
+//	public String getRoomById(long id) {
+//		final String URI = "/room-service?wsdl";
+//		final String SOAP_MESSAGE = "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ser=\"http://service.revature.com/\">\r\n"
+//				+ "   <soapenv:Header/>\r\n"
+//				+ "   <soapenv:Body>\r\n"
+//				+ "      <ser:findById>\r\n"
+//				+ "         <arg0>" + id + "</arg0>\r\n"
+//				+ "      </ser:findById>\r\n"
+//				+ "   </soapenv:Body>\r\n"
+//				+ "</soapenv:Envelope>";
+//		
+//		HttpHeaders header = new HttpHeaders();
+//		header.setContentType(MediaType.APPLICATION_XML);
+//		HttpEntity<String> request = new HttpEntity<>(SOAP_MESSAGE, header);
+//		ResponseEntity<String> httpResponse = restTemplate2.exchange(URI, 
+//				HttpMethod.GET, request, new ParameterizedTypeReference<String>() {
+//				});
+//		return httpResponse.getBody();		
+
+//	}
 
 	
 	

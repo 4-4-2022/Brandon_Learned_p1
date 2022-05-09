@@ -22,19 +22,22 @@ import com.revature.service.CustomerService;
 @RequestMapping("/customer")
 public class CustomerController {
 	
+	//instance field variable
 	private CustomerService customerService;
 	
-	@Autowired
+	@Autowired //autowires the instance variables
 	public void setCustomerService(CustomerService customerService) {
 		this.customerService = customerService;
 	}
 	
+	//calls the customer service findall method to return a response entity value, returning the returned value
 	@GetMapping(value="/all", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Customer>> findAll(){
 		ResponseEntity<List<Customer>> httpResponse = new ResponseEntity<>(this.customerService.findAll(), HttpStatus.OK);
 		return httpResponse;
 	}
 	
+	//calls customer service to return a customer from database by id.
 	@GetMapping("/{id}")
 	public Customer findCustomerById(@PathVariable long id) {
 		return this.customerService.findCustomerById(id);
@@ -74,12 +77,6 @@ public class CustomerController {
 		return null;
 	}
 	
-	
-//	@GetMapping("/update/{id}")
-//	public String updateReservationId(@PathVariable long id) {
-//		this.customerService.updateReservationId(1, 5);
-//		return "This happened";
-//		
-//	}
+
 
 }

@@ -1,20 +1,15 @@
 package com.revature.service;
 
-import java.util.List; 
+import java.util.List;  
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import com.revature.model.Customer;
 import com.revature.model.Reservation;
-import com.revature.model.Room;
 import com.revature.repository.ReservationRepository;
 
 

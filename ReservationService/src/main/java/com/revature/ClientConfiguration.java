@@ -19,7 +19,6 @@ public class ClientConfiguration {
 		try {
 			proxyFactory.setWsdlDocumentUrl(new URL("http://localhost:8080/soap-service/room-service?wsdl"));
 			proxyFactory.setServiceInterface(RoomService.class);
-			
 			proxyFactory.setServiceName("RoomServiceImplService");
 			proxyFactory.setPortName("RoomServiceImplPort");
 			proxyFactory.setNamespaceUri("http://service.revature.com/");

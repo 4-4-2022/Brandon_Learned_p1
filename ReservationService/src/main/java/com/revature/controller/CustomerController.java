@@ -1,16 +1,13 @@
 package com.revature.controller;
 
-import java.util.List;
+import java.util.List; 
 
-import javax.websocket.server.PathParam;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,10 +20,6 @@ import org.springframework.web.client.RestTemplate;
 
 import com.revature.model.Customer;
 import com.revature.model.CustomerDTO;
-import com.revature.model.Reservation;
-import com.revature.service.ReservationService;
-
-import net.bytebuddy.utility.privilege.GetMethodAction;
 
 
 @RestController

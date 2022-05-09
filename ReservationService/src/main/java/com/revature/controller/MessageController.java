@@ -1,8 +1,6 @@
 package com.revature.controller;
 
-import java.util.List;
-
-import javax.websocket.server.PathParam;
+import java.util.List; 
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.model.Room;
 import com.revature.soap.RoomService;
-
+ 
 @RestController("messageController")
 @RequestMapping("/room")
 public class MessageController {

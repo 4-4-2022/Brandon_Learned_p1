@@ -46,6 +46,15 @@ public class Reservation {
 		this.roomId = roomId;
 		this.daysBooked = daysBooked;
 	}
+	
+	public Reservation(long id, long customerId, long roomId, int daysBooked, float total) {
+		super();
+		this.id = id;
+		this.customerId = customerId;
+		this.roomId = roomId;
+		this.daysBooked = daysBooked;
+		this.total = total;
+	}
 
 
 	public long getId() {

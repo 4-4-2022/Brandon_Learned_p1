@@ -23,28 +23,30 @@ List of features ready and TODOs for future development
 To-do list:
 * Improve documentation
 * Implement more hotel options
-
 ## Getting Started
    
-(git clone https://github.com/4-4-2022/Brandon_Learned_p1.git)
-(include all environment setup steps)
+git clone https://github.com/4-4-2022/Brandon_Learned_p1.git
+Installations Required: JDK8, Maven, Spring Tool Suite 4
 
-> Be sure to include BOTH Windows and Unix command  
-> Be sure to mention if the commands only work on a specific platform (eg. AWS, GCP)
-
-- All the `code` required to get started
-- Images of what it should look like
-
-![alt text](../Images/img1-all)
 
 ## Usage
+View the images below for proper HTTP Request formats:
 
-> Here, you instruct other people on how to use your project after they’ve installed it. This would also be a good place to include screenshots of your project in action.
-
-## Contributors
-
-> Here list the people who have contributed to this project. (ignore this section, if its a solo project)
-
-## License
-
-This project uses the following license: [<license_name>](<link>).
+<figcaption>View All Created Customers</figcaption>
+<img src="Images/img1-all.png" width="800">
+Create a New Customer
+<img src="Images/img2-create.png" width="800">
+Delete a Customer
+<img src="Images/img3-delete.png" width="800">
+Find Customers by their ReservationIDs
+<img src="Images/img4-findreservation.png" width="800">
+View Rooms that can be booked
+<img src="Images/img5-viewrooms.png" width="800">
+Create new reservations
+<img src="Images/img6-createres.png" width="800">
+View all Reservations
+<img src="Images/img7-viewreses.png" width="800">
+Delete a reservations by ID
+<img src="Images/img8-deleteres.png" width="800">
+View a reservation by ID
+<img src="Images/img9-viewresbyid.png" width="800">

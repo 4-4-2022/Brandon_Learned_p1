@@ -35,7 +35,7 @@ To-do list:
 - All the `code` required to get started
 - Images of what it should look like
 
-![alt text](Images/img1-all)
+![alt text](../Images/img1-all)
 
 ## Usage
 

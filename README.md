@@ -35,6 +35,8 @@ To-do list:
 - All the `code` required to get started
 - Images of what it should look like
 
+![alt text](Images/img1-all)
+
 ## Usage
 
 > Here, you instruct other people on how to use your project after they’ve installed it. This would also be a good place to include screenshots of your project in action.
